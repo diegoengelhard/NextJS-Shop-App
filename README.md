@@ -22,11 +22,11 @@ With an intuitive interface and a comprehensive set of features, this Next.js e-
 
 To get started with this project, follow these steps:
 
-1. Clone the repository: git clone <this-repo>
+1. Clone the repository: git clone `<this-repo>`
 
-2. Navigate into the project directory:
+2. Navigate into the project directory: cd `<shop-app-admin>` for admin & cd `<shop-app-client>` for client
 
-3. Run the development server:
+3. Run the development server: npm run dev
 
 4. Open http://localhost:3000 with your browser to see the result.
 
