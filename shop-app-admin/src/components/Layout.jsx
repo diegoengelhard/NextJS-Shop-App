@@ -1,9 +1,6 @@
 import React from 'react';
 import Image from "next/image";
 import Link from 'next/link';
-import { useSession, signIn, signOut } from "next-auth/react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { FcGoogle } from "react-icons/fc";
 
 
