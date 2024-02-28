@@ -12,6 +12,10 @@ export async function middleware(req, ev) {
         return NextResponse.redirect(new URL('/', req.nextUrl))
     }
 
+    if (publicPath && !session) {
+        return NextResponse.next();
+    }
+
     if (!session) {
         return NextResponse.redirect(new URL('/signin', req.nextUrl))
     }
@@ -21,6 +25,7 @@ export const config = {
     // Set matcher to all available paths
     matcher: [
         '/',
+        '/signin',
         '/products',
     ]
 };
