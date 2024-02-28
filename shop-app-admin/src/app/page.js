@@ -14,6 +14,9 @@ export default function Home() {
 
   return (
     <Layout>
+      <h2>
+        Welcome, <b>{session?.user?.name}</b>!
+      </h2>
       <p>You're Logged in</p>
       <button
         onClick={() => signOut()}

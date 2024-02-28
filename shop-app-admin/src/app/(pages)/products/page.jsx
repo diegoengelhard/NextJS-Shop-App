@@ -1,9 +1,14 @@
 "use client";
 import React from 'react';
+import Layout from '../../../components/Layout';
 
 const ProductsPage = () => {
     return (
-        <div>ProductsPage</div>
+        <>
+            <Layout>
+                <p>Products Page</p>
+            </Layout>
+        </>
     )
 }
 
