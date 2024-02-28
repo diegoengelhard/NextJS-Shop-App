@@ -1,13 +1,38 @@
 "use client";
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation';
 import Layout from '../../../../components/Layout';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const NewProductPage = () => {
+    const router = useRouter();
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const saveProduct = async () => { }
+    const saveProduct = async (e) => {
+        e.preventDefault();
+        const product = { title, description, price };
+        console.log(product);
+        try {
+            setLoading(true);
+            const response = await axios.post('/api/products', product);
+            console.log(response);
+            toast.success('Product saved successfully');
+            setLoading(false);
+            setTimeout(() => {
+                router.push('/products');
+            }, 1000);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+            toast.error('Error saving product.');
+        }
+
+    }
     return (
         <Layout>
             <h1>New Product</h1>
@@ -34,8 +59,10 @@ const NewProductPage = () => {
                 />
                 <button
                     type="submit"
-                    className="btn-primary">
-                    Save
+                    className="btn-primary"
+                    disabled={loading}
+                >
+                    {loading ? 'Saving...' : 'Save'}
                 </button>
             </form>
         </Layout>
