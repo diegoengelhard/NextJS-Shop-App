@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { signIn, signOut, useSession } from "next-auth/react";
 import { toast } from 'react-toastify';
 
-const Layout = () => {
+import Navbar from './Navbar';
+
+const Layout = ({children}) => {
     const { data: session } = useSession();
 
     const [email, setEmail] = useState("");
@@ -51,13 +53,10 @@ const Layout = () => {
     }
     return (
         <>
-            <div>Youre Logged in</div>
-            <button
-                onClick={() => signOut()}
-                className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
-            >
-                Log Out
-            </button>
+            <Navbar />
+            <section>
+                {children}
+            </section>
         </>
     )
 }
