@@ -34,11 +34,19 @@ export async function POST(req, res) {
 // Get all products
 export async function GET(req, res) {
     try {
-        // Get products from db
+        // check if query id exists
+        if (req.query?.id) {
+            // get product by id
+            const product = await Product.findOne({_id:req.query.id});
+            return NextResponse.json(product);
+        }
+
+        // get all products
         const products = await Product.find();
 
         // Return products
         return NextResponse.json(products);
+        
     } catch (error) {
         console.error(error);
         return NextResponse.json({ error: error.message }, { status: 500 });
