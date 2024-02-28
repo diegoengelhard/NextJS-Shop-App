@@ -4,14 +4,16 @@ import { toast } from 'react-toastify';
 
 import Navbar from './Navbar';
 
-const Layout = ({children}) => {
-    
+const Layout = ({ children }) => {
+
     return (
         <>
-            <Navbar />
-            <section>
-                {children}
-            </section>
+            <div className='bg-purple-500 min-h-screen flex'>
+                <Navbar />
+                <section className='bg-white flex-grow my-2 mr-2 rounded-lg p-4'>
+                    {children}
+                </section>
+            </div>
         </>
     )
 }
