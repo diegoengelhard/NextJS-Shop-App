@@ -1,11 +1,20 @@
 "use client";
-import Image from 'next/image'
+import { useSession, signOut, signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import Layout from '../components/Layout';
 
+
 export default function Home() {
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout>
-      <p>Youre Logged in</p>
+      <p>You're Logged in</p>
       <button
         onClick={() => signOut()}
         className="bg-red-500 text-white font-bold px-6 py-2 mt-3"
