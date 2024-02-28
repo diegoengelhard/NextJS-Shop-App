@@ -6,20 +6,23 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const NewProductPage = () => {
+    // mount router
     const router = useRouter();
 
+    // set states
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // save product
     const saveProduct = async (e) => {
         e.preventDefault();
-        const product = { title, description, price };
+        const product = { title, description, price }; // create product data object
         console.log(product);
         try {
             setLoading(true);
-            const response = await axios.post('/api/products', product);
+            const response = await axios.post('/api/products', product); // call api to save product
             console.log(response);
             toast.success('Product saved successfully');
             setLoading(false);
