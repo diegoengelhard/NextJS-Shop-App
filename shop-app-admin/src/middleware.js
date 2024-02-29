@@ -32,5 +32,6 @@ export const config = {
         '/',
         '/signin',
         '/products',
+        '/products/:path*',
     ]
 };
