@@ -13,7 +13,7 @@ const ProductForm = ({ product = null, id = null }) => {
     const router = useRouter();
 
     // set states
-    const [title, setTitle] = useState(product?.title ||'');
+    const [title, setTitle] = useState(product?.title || '');
     const [description, setDescription] = useState(product?.description || '');
     const [photos, setPhotos] = useState(product?.photos || []);
     const [price, setPrice] = useState(product?.price || '');
@@ -75,10 +75,11 @@ const ProductForm = ({ product = null, id = null }) => {
 
         setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
     }
+
     return (
         <>
             {/* Product form */}
-            <form onSubmit={saveProduct} className='w-2/3'>
+            <form className='w-2/3'>
                 {/* Product name */}
                 <label>Product name</label>
                 <input
@@ -95,16 +96,18 @@ const ProductForm = ({ product = null, id = null }) => {
                     onChange={ev => setDescription(ev.target.value)}
                 />
                 {/* Product pics */}
-                <div className="mb-2 gap-1">
-                    <label>Photos</label>
+                <label>Photos</label>
+                <div className="flex mb-2 gap-1">
                     <div className='w-1/3 h-24'>
                         <FileBase
                             type="file"
                             multiple={true}
                             onDone={handleFileUpload}
                         />
+                    </div>
+                    <div className='flex flex-wrap gap-1'>
                         {photos.length > 0 && photos.map((photo, index) => (
-                            <img key={index} src={photo} alt="Uploaded" className="w-32 h-32 object-cover rounded-lg" />
+                            <img key={index} src={photo} alt="Uploaded" className="w-32 h-32 ml-2 object-cover rounded-lg" />
                         ))}
                     </div>
                 </div>
@@ -115,15 +118,25 @@ const ProductForm = ({ product = null, id = null }) => {
                     value={price}
                     onChange={ev => setPrice(ev.target.value)}
                 />
-                {/* Save button */}
+            </form>
+            {/* Save button */}
+            <div className='flex gap-2'>
                 <button
                     type="submit"
                     className="btn-primary"
                     disabled={loading}
+                    onClick={saveProduct}
                 >
                     {loading ? 'Saving...' : 'Save'}
                 </button>
-            </form>
+                <button
+                    className="btn-default"
+                    onClick={() => router.push('/products')}
+                    disabled={loading}
+                >
+                    Discard
+                </button>
+            </div>
         </>
     )
 }
