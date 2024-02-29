@@ -74,3 +74,30 @@ export async function PUT(req, res) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+
+export async function DELETE(req, res) {
+    try {
+        // Get input data
+        const { id } = await req.json();
+
+        // Verify no empty fields
+        if (!id) {
+            return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+        }
+
+        // Check if product exists
+        const product = await Product.findOne({ _id: id });
+        if (!product) {
+            return NextResponse.json({ error: "Product not found" }, { status: 404 });
+        }
+
+        // Delete product
+        await Product.deleteOne({ _id: id });
+
+        // Return success message
+        return NextResponse.json({ message: "Product deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
