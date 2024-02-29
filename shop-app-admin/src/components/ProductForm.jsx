@@ -18,6 +18,8 @@ const ProductForm = ({ product = null, id = null }) => {
     const [price, setPrice] = useState(product ? product[0]?.price : '');
     const [loading, setLoading] = useState(false);
 
+    console.log(product);
+
     const createProduct = async (productData) => {
         setLoading(true);
         const response = await axios.post('/api/products', productData); // call api to save product

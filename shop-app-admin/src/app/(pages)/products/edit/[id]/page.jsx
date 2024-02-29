@@ -15,28 +15,30 @@ const EditProductPage = () => {
     const [loading, setLoading] = useState(false);
 
     // get product by id
+    
     useEffect(() => {
-        const getProduct = async () => {
+        const findProductById = async (id) => {
             try {
                 setLoading(true);
-                const response = await axios.get(`/api/products?id=${id}`); // call api to get product
-                setProduct(response.data); // set product state
+                const response = await axios.get(`/api/products/${id}`);
+                console.log(response.data.product);
+                setProduct(response.data.product);
                 setLoading(false);
             } catch (error) {
-                setLoading(false);
                 console.log(error);
-                toast.error('Error getting product.');
             }
         }
 
-        getProduct();
-    }, []);
+        findProductById(id)
+    }, [id]);
+
+    console.log('product', product);
 
     return (
         <>
             <Layout>
                 <h1>Edit product</h1>
-                {loading ? <p>Loading...</p> : <ProductForm product={product} id={id} />}
+                {/* {loading ? <p>Loading...</p> : <ProductForm product={product} id={id} />} */}
             </Layout>
         </>
     )
