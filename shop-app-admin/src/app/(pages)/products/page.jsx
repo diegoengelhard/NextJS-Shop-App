@@ -36,7 +36,6 @@ const ProductsPage = () => {
         try {
             const response = await axios.delete('/api/products', { data: { id } });
             console.log(response);
-            toast.success('Product deleted successfully');
         } catch (error) {
             console.log(error);
         }
@@ -56,7 +55,7 @@ const ProductsPage = () => {
                 deleteProduct(id);
                 Swal.fire({
                     title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    text: "Product has been deleted.",
                     icon: "success"
                 });
             }

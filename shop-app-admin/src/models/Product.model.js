@@ -9,6 +9,10 @@ const productSchema = new Schema({
         type: String,
         required: [true, "Description is required"]
     },
+    photos: {
+        type: Array,
+        default: [],
+    },
     price: {
         type: Number,
         required: [true, "Price is required"]
