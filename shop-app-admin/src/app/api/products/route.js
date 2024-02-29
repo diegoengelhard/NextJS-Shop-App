@@ -52,3 +52,25 @@ export async function GET(req, res) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
+
+// Update a product
+export async function PUT(req, res) {
+    try {
+        // Get input data
+        const { _id, title, description, price } = await req.json();
+
+        // Verify no empty fields
+        if (!_id || !title || !description || !price) {
+            return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+        }
+
+        // Update product
+        const product = await Product.findOneAndUpdate({ _id }, { title, description, price }, { new: true });
+
+        // Return success message
+        return NextResponse.json({ message: "Product updated successfully" }, product);
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

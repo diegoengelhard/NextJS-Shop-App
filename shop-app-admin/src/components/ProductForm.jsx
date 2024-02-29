@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const ProductForm = ({ product = null, id = null }) => {
     // mount router
     const router = useRouter();
-    
+
     // set states
     const [title, setTitle] = useState(product ? product[0]?.title : '');
     const [description, setDescription] = useState(product ? product[0]?.description : '');
@@ -25,19 +25,29 @@ const ProductForm = ({ product = null, id = null }) => {
         }, 1000);
     }
 
+    const editProduct = async (id, productData) => {
+        setLoading(true);
+        const response = await axios.put('/api/products', { _id: id, ...productData }); // call api to update product
+        console.log(response);
+        toast.success('Product updated successfully');
+        setLoading(false);
+        setTimeout(() => {
+            router.push('/products');
+        }, 1000);
+    }
+
     // save product
     const saveProduct = async (e) => {
         e.preventDefault();
-        const product = { title, description, price }; // create product data object
+        const productData = { title, description, price }; // create product data object
         console.log(product);
         try {
             if (id) {
                 // edit
-                setLoading(true);
-
+                editProduct(id, productData);
             } else {
                 // create
-                createProduct(product);
+                createProduct(productData);
             }
         } catch (error) {
             setLoading(false);
