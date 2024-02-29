@@ -32,13 +32,11 @@ const EditProductPage = () => {
         findProductById(id)
     }, [id]);
 
-    console.log('product', product);
-
     return (
         <>
             <Layout>
                 <h1>Edit product</h1>
-                {/* {loading ? <p>Loading...</p> : <ProductForm product={product} id={id} />} */}
+                {loading ? <p>Loading...</p> : <ProductForm product={product} id={id} />}
             </Layout>
         </>
     )

@@ -8,17 +8,16 @@ import { toast } from 'react-toastify';
 import FileBase from 'react-file-base64';
 
 const ProductForm = ({ product = null, id = null }) => {
+    console.log('form', product);
     // mount router
     const router = useRouter();
 
     // set states
-    const [title, setTitle] = useState(product ? product[0]?.title : '');
-    const [description, setDescription] = useState(product ? product[0]?.description : '');
-    const [photos, setPhotos] = useState([]);
-    const [price, setPrice] = useState(product ? product[0]?.price : '');
+    const [title, setTitle] = useState(product?.title ||'');
+    const [description, setDescription] = useState(product?.description || '');
+    const [photos, setPhotos] = useState(product?.photos || []);
+    const [price, setPrice] = useState(product?.price || '');
     const [loading, setLoading] = useState(false);
-
-    console.log(product);
 
     const createProduct = async (productData) => {
         setLoading(true);
