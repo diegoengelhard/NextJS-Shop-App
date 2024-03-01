@@ -37,12 +37,27 @@ const CategoriesPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const data = { name, parentCategory };
-            const response = await axios.post('/api/categories', data);
-            console.log(response);
-            fetchCategories();
-            toast.success('Category saved successfully');
+            const data = { 
+                name,
+                parent: parentCategory
+            };
+
+            if (editCategory) {
+                // Update category
+                const response = await axios.put(`/api/categories/${editCategory._id}`, data);
+                console.log(response);;
+                toast.success('Category updated successfully');
+            } else {
+                // Create category
+                const response = await axios.post('/api/categories', data);
+                console.log(response);
+                toast.success('Category saved successfully');
+            }
+
+            setName('');
+            setParentCategory('');
             setLoading(false);
+            fetchCategories();
         } catch (error) {
             setLoading(false);
             console.log(error);
@@ -54,6 +69,33 @@ const CategoriesPage = () => {
         setEditCategory(category);
         setName(category.name);
         setParentCategory(category.parent?._id);
+    }
+
+    const deleteCategory = (category) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const {_id} = category;
+                    console.log(_id);
+                    const response = await axios.delete(`/api/categories/${_id}`);
+                    console.log(response);
+                    toast.success('Category deleted successfully');
+                    fetchCategories();
+                } catch (error) {
+                    console.log(error);
+                    toast.error('Error deleting category');
+                }
+            }
+        });
     }
 
     return (
@@ -108,7 +150,11 @@ const CategoriesPage = () => {
                                                 Edit
                                             </button>
                                             <button
-                                                className="btn-red">Delete</button>
+                                                onClick={() => deleteCategory(category)}
+                                                className="btn-red"
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
