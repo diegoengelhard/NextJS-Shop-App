@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
 import axios from 'axios';
@@ -14,10 +14,30 @@ const ProductForm = ({ product = null, id = null }) => {
 
     // set states
     const [title, setTitle] = useState(product?.title || '');
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(product?.category || '' || categories[0]?._id);
     const [description, setDescription] = useState(product?.description || '');
     const [photos, setPhotos] = useState(product?.photos || []);
     const [price, setPrice] = useState(product?.price || '');
     const [loading, setLoading] = useState(false);
+
+    // Fetch categories
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('/api/categories');
+                console.log(response);
+                setCategories(response.data);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.log(error);
+            }
+        }
+
+        fetchCategories();
+    }, []);
 
     const createProduct = async (productData) => {
         setLoading(true);
@@ -44,8 +64,16 @@ const ProductForm = ({ product = null, id = null }) => {
     // save product
     const saveProduct = async (e) => {
         e.preventDefault();
-        const productData = { title, description, photos, price }; // create product data object
-        console.log(product);
+
+        // create product data object
+        const productData = { 
+            title, 
+            category: selectedCategory,
+            description,
+            photos,
+            price
+        }; 
+        console.log(productData);
         try {
             if (id) {
                 // edit
@@ -88,13 +116,17 @@ const ProductForm = ({ product = null, id = null }) => {
                     value={title}
                     onChange={ev => setTitle(ev.target.value)}
                 />
-                {/* Product desc */}
-                <label>Description</label>
-                <textarea
-                    placeholder="description"
-                    value={description}
-                    onChange={ev => setDescription(ev.target.value)}
-                />
+                {/* Product category */}
+                <label>Category</label>
+                <select
+                    value={selectedCategory}
+                    onChange={ev => setSelectedCategory(ev.target.value)}
+                >
+                    <option value="">No category selected</option>
+                    {categories.map(category => (
+                        <option key={category._id} value={category.name}>{category.name}</option>
+                    ))}
+                </select>
                 {/* Product pics */}
                 <label>Photos</label>
                 <div className="flex mb-2 gap-1">
@@ -111,6 +143,13 @@ const ProductForm = ({ product = null, id = null }) => {
                         ))}
                     </div>
                 </div>
+                {/* Product desc */}
+                <label>Description</label>
+                <textarea
+                    placeholder="description"
+                    value={description}
+                    onChange={ev => setDescription(ev.target.value)}
+                />
                 {/* Product price */}
                 <label>Price (in USD)</label>
                 <input

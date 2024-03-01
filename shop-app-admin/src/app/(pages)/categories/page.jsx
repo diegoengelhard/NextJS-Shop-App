@@ -38,8 +38,7 @@ const CategoriesPage = () => {
         setLoading(true);
         try {
             const data = {
-                name,
-                parentCategory
+                name
             };
 
             if (editCategory) {
@@ -86,8 +85,10 @@ const CategoriesPage = () => {
                 try {
                     const { _id } = category;
                     console.log(_id);
+                    setLoading(true);
                     const response = await axios.delete(`/api/categories/${_id}`);
                     console.log(response);
+                    setLoading(false);
                     toast.success('Category deleted successfully');
                     fetchCategories();
                 } catch (error) {

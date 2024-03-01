@@ -8,7 +8,7 @@ connect();
 export async function POST(req, res) {
     try {
         // Get input data
-        const { name, parentCategory } = await req.json();
+        const { name } = await req.json();
 
         // Verify no empty fields
         if (!name) {
@@ -18,7 +18,6 @@ export async function POST(req, res) {
         // Create new category
         const category = new Category({ 
             name,
-            parentCategory, // This is the name of the parent category
         });
 
         // Save category to db

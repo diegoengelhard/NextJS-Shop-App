@@ -7,12 +7,6 @@ const categorySchema = new Schema({
         unique: true,
         trim: true
     },
-    parentCategory: { 
-        type: String,
-        unique: true,
-        trim: true,
-        default: 'N/A'
-    }
 });
 
 const Category = models.Category || mongoose.model("Category", categorySchema);

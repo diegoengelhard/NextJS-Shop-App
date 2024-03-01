@@ -8,16 +8,16 @@ connect();
 export async function POST(req, res) {
     try{
         // Get input data
-        const { title, description, photos, price } = await req.json();
+        const { title, category, description, photos, price } = await req.json();
 
         // Verify no empty fields
-        if (!title || !description || !price) {
+        if (!title || !category || !description || !price) {
             return NextResponse.json({ error: "All fields are required" }, { status: 400 });
         }
 
         // Create new product
         const product = new Product({ 
-            title, description, photos, price 
+            title, category, description, photos, price 
         });
 
         // Save product to db
@@ -50,15 +50,15 @@ export async function GET(req, res) {
 export async function PUT(req, res) {
     try {
         // Get input data
-        const { _id, title, description, price } = await req.json();
+        const { _id, title, category, description, price } = await req.json();
 
         // Verify no empty fields
-        if (!_id || !title || !description || !price) {
+        if (!_id || !title || !category || !description || !price) {
             return NextResponse.json({ error: "All fields are required" }, { status: 400 });
         }
 
         // Update product
-        const product = await Product.findOneAndUpdate({ _id }, { title, description, price }, { new: true });
+        const product = await Product.findOneAndUpdate({ _id }, { title, category, description, price }, { new: true });
 
         // Return success message
         return NextResponse.json({ message: "Product updated successfully" }, product);
