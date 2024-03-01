@@ -18,7 +18,7 @@ const CategoriesPage = () => {
         setLoading(true);
         try {
             const response = await axios.get('/api/categories');
-            console.log(response);
+            console.log(response.data);
             setCategories(response.data);
             setLoading(false);
         } catch (error) {
@@ -37,20 +37,20 @@ const CategoriesPage = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            const data = { 
+            const data = {
                 name,
-                parent: parentCategory
+                parentCategory
             };
 
             if (editCategory) {
                 // Update category
                 const response = await axios.put(`/api/categories/${editCategory._id}`, data);
-                console.log(response);;
+                console.log(response.data);;
                 toast.success('Category updated successfully');
             } else {
                 // Create category
                 const response = await axios.post('/api/categories', data);
-                console.log(response);
+                console.log(response.data);
                 toast.success('Category saved successfully');
             }
 
@@ -84,7 +84,7 @@ const CategoriesPage = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const {_id} = category;
+                    const { _id } = category;
                     console.log(_id);
                     const response = await axios.delete(`/api/categories/${_id}`);
                     console.log(response);
@@ -104,9 +104,9 @@ const CategoriesPage = () => {
                 <h1>Categories</h1>
                 <div className='w-2/3'>
                     {/* Add Main Category form */}
-                    <label>{editCategory ? 'Edit category': 'Add new category'}</label>
+                    <label>{editCategory ? 'Edit category' : 'Add new category'}</label>
                     <form onSubmit={saveCategory} className='flex gap-1'>
-                    <input
+                        <input
                             type="text"
                             placeholder='category name'
                             value={name}
@@ -117,9 +117,10 @@ const CategoriesPage = () => {
                             value={parentCategory}>
                             <option value="">No parent category</option>
                             {categories.length > 0 && categories.map(category => (
-                                <option key={category._id} value={category._id}>{category.name}</option>
+                                <option key={category._id} value={category.name}>{category.name}</option>
                             ))}
                         </select>
+
                         <button
                             type="submit"
                             className="btn-primary text-sm mb-2">
@@ -141,7 +142,7 @@ const CategoriesPage = () => {
                                 {categories.length > 0 && categories.map(category => (
                                     <tr key={category._id}>
                                         <td>{category.name}</td>
-                                        <td>{category?.parent?.name}</td>
+                                        <td>{category.parentCategory}</td>
                                         <td>
                                             <button
                                                 onClick={() => updateCategory(category)}

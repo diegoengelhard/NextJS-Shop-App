@@ -7,9 +7,11 @@ const categorySchema = new Schema({
         unique: true,
         trim: true
     },
-    parent: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Category'
+    parentCategory: { 
+        type: String,
+        unique: true,
+        trim: true,
+        default: 'N/A'
     }
 });
 

@@ -18,24 +18,25 @@ export async function POST(req, res) {
         // Create new category
         const category = new Category({ 
             name,
-            parent: parentCategory || undefined,
+            parentCategory, // This is the name of the parent category
         });
 
         // Save category to db
         await category.save();
 
-        return NextResponse.json({ message: "Category created successfully" }, category, { status: 201 });
+        return NextResponse.json({ message: "Category created successfully", category}, { status: 201 });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return res.status(500).json({ error: error.message });
     }
 }
+
 
 // Get all categories
 export async function GET(req, res) {
     try {
         // get all categories
-        const categories = await Category.find().populate('parent', null, null, { strictPopulate: false })
+        const categories = await Category.find();
 
         // Return categories
         return NextResponse.json(categories);
