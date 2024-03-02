@@ -1,4 +1,4 @@
-import {connect} from '@/config/mongoose';
+import { connect } from '@/config/mongoose';
 import Category from '@/models/Category.model';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -8,7 +8,7 @@ connect();
 export async function POST(req, res) {
     try {
         // Get input data
-        const { name } = await req.json();
+        const { name, properties } = await req.json();
 
         // Verify no empty fields
         if (!name) {
@@ -16,14 +16,14 @@ export async function POST(req, res) {
         }
 
         // Create new category
-        const category = new Category({ 
+        const category = new Category({
             name,
         });
 
         // Save category to db
         await category.save();
 
-        return NextResponse.json({ message: "Category created successfully", category}, { status: 201 });
+        return NextResponse.json({ message: "Category created successfully", category }, { status: 201 });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: error.message });

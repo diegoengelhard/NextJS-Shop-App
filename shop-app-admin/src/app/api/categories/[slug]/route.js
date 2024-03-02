@@ -17,7 +17,7 @@ export async function PUT(request, { params }) {
         }
 
         // get input data
-        const { name, parent } = await request.json();
+        const { name, properties } = await request.json();
 
         // verify no empty fields
         if (!name) {
@@ -25,7 +25,7 @@ export async function PUT(request, { params }) {
         }
 
         // update category
-        const categoryToUpdate = await Category.findOneAndUpdate({ _id: id }, { name, parent }, { new: true });
+        const categoryToUpdate = await Category.findOneAndUpdate({ _id: id }, { name, properties }, { new: true });
 
         // return updated category
         return NextResponse.json({ message: "Category updated successfully" }, categoryToUpdate, { status: 200 });
