@@ -45,6 +45,7 @@ const CategoriesPage = () => {
                     values: p.values.split(','),
                 })),
             };
+            console.log('form cat data: ', data);
 
             if (editCategory) {
                 // Update category
@@ -61,6 +62,7 @@ const CategoriesPage = () => {
             setName('');
             setParentCategory('');
             setLoading(false);
+            emptyForm();
             fetchCategories();
         } catch (error) {
             setLoading(false);
@@ -192,7 +194,7 @@ const CategoriesPage = () => {
                                 Add new property
                             </button>
                             {properties.length > 0 && properties.map((property, index) => (
-                                <div key={property.name} className="flex gap-1 mb-2">
+                                <div key={`${property.name}-${index}`} className="flex gap-1 mb-2">
                                     <input type="text"
                                         value={property.name}
                                         className="mb-0"
@@ -241,7 +243,7 @@ const CategoriesPage = () => {
                                 <thead>
                                     <tr>
                                         <td>Category</td>
-                                        <td>Sub-Category</td>
+                                        <td>Properties</td>
                                         <td>Actions</td>
                                     </tr>
                                 </thead>
@@ -249,7 +251,9 @@ const CategoriesPage = () => {
                                     {categories.length > 0 && categories.map(category => (
                                         <tr key={category._id}>
                                             <td>{category.name}</td>
-                                            <td>{category.parentCategory}</td>
+                                            <td>
+                                                {category.properties.map(property => property.name).join(', ')}
+                                            </td>
                                             <td>
                                                 <button
                                                     onClick={() => updateCategory(category)}

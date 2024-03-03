@@ -8,7 +8,7 @@ connect();
 export async function POST(req, res) {
     try{
         // Get input data
-        const { title, category, description, photos, price } = await req.json();
+        const { title, category, properties, description, photos, price } = await req.json();
 
         // Verify no empty fields
         if (!title || !category || !description || !price) {
@@ -17,7 +17,7 @@ export async function POST(req, res) {
 
         // Create new product
         const product = new Product({ 
-            title, category, description, photos, price 
+            title, category, properties, description, photos, price 
         });
 
         // Save product to db

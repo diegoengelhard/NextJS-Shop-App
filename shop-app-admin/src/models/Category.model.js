@@ -10,7 +10,7 @@ const categorySchema = new Schema({
     properties: {
         type: [{
             name: String,
-            value: String
+            values: [String]
         }],
         default: []
     }

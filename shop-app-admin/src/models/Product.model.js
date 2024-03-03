@@ -9,6 +9,13 @@ const productSchema = new Schema({
         type: String,
         required: [true, "Category is required"]
     },
+    properties: {
+        type: [{
+            name: String,
+            value: String
+        }],
+        default: []
+    },
     description: {
         type: String,
         required: [true, "Description is required"]

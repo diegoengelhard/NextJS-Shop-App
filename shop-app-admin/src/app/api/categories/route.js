@@ -17,7 +17,7 @@ export async function POST(req, res) {
 
         // Create new category
         const category = new Category({
-            name,
+            name, properties
         });
 
         // Save category to db

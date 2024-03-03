@@ -15,6 +15,7 @@ const ProductForm = ({ product = null, id = null }) => {
     // set states
     const [title, setTitle] = useState(product?.title || '');
     const [categories, setCategories] = useState([]);
+    const [properties, setProperties] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(product?.category || '' || categories[0]?._id);
     const [description, setDescription] = useState(product?.description || '');
     const [photos, setPhotos] = useState(product?.photos || []);
@@ -104,6 +105,13 @@ const ProductForm = ({ product = null, id = null }) => {
         setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
     }
 
+    // log categories
+    // console.log(categories);
+
+    // TODO: Add product category properties
+    // categories should have a properties array, and each property should have a name and value. 
+    // properties should be displayed based on the selected category.
+
     return (
         <>
             {/* Product form */}
@@ -118,6 +126,17 @@ const ProductForm = ({ product = null, id = null }) => {
                 />
                 {/* Product category */}
                 <label>Category</label>
+                <select
+                    value={selectedCategory}
+                    onChange={ev => setSelectedCategory(ev.target.value)}
+                >
+                    <option value="">No category selected</option>
+                    {categories.map(category => (
+                        <option key={category._id} value={category.name}>{category.name}</option>
+                    ))}
+                </select>
+                {/* Product Category Properties */}
+                <label>Properties</label>
                 <select
                     value={selectedCategory}
                     onChange={ev => setSelectedCategory(ev.target.value)}
