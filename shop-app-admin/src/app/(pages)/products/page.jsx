@@ -31,6 +31,8 @@ const ProductsPage = () => {
         fetchProducts();
     }, []);
 
+    console.log('all products: ', products);
+
     // Handle delete product
     const deleteProduct = async (id) => {
         try {
@@ -49,7 +51,8 @@ const ProductsPage = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, delete it!",
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
                 deleteProduct(id);

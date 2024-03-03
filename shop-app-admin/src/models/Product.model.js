@@ -10,11 +10,8 @@ const productSchema = new Schema({
         required: [true, "Category is required"]
     },
     properties: {
-        type: [{
-            name: String,
-            value: String
-        }],
-        default: []
+        type: Map,  // Using Map type for dynamic keys
+        of: String  // Values are arrays of strings
     },
     description: {
         type: String,

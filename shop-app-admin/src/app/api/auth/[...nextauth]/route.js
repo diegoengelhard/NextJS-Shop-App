@@ -26,6 +26,10 @@ export const authOptions = {
                     if (!passwordsMatch) {
                         return null;
                     }
+                    
+                    if (!user.isAdmin) {
+                        return null;
+                    }
 
                     return user;
                 } catch (error) {

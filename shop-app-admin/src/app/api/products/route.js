@@ -50,7 +50,7 @@ export async function GET(req, res) {
 export async function PUT(req, res) {
     try {
         // Get input data
-        const { _id, title, category, description, price } = await req.json();
+        const { _id, title, category, properties, description, photos, price } = await req.json();
 
         // Verify no empty fields
         if (!_id || !title || !category || !description || !price) {
@@ -58,7 +58,7 @@ export async function PUT(req, res) {
         }
 
         // Update product
-        const product = await Product.findOneAndUpdate({ _id }, { title, category, description, price }, { new: true });
+        const product = await Product.findOneAndUpdate({ _id }, { title, category, properties, description, photos, price }, { new: true });
 
         // Return success message
         return NextResponse.json({ message: "Product updated successfully" }, product);
