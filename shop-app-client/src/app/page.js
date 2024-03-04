@@ -6,7 +6,7 @@ import styles from './page.module.css'
 
 import Header from '@/components/Header/Header';
 import FeaturedProducts from '@/components/FeaturedProducts/FeaturedProducts';
-import ProductsFeed from '@/components/ProductsFeed/ProductsFeed';
+import ProductsFeed from '@/components/ProductsFeed';
 
 export default function Home() {
   // set states
@@ -33,7 +33,6 @@ export default function Home() {
 
   // obtain the first product
   const featuredProduct = products[0];
-  console.log('featured product: ', featuredProduct);
 
   return (
     <>
@@ -41,8 +40,7 @@ export default function Home() {
       {loading ? <p>Loading...</p> : (
         <>
           <FeaturedProducts product={featuredProduct}/>
-          <ProductsFeed />
-          <h1>Home</h1>
+          <ProductsFeed products={products} />
         </>
       )}
     </>

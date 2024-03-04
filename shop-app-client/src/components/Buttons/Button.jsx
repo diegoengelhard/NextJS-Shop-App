@@ -16,10 +16,10 @@ export const ButtonStyle = css`
     margin-right: 5px;
   }
 
-  ${props => props.block && css`
-    display: block;
-    width: 100%;
-  `}
+  ${props => props.$block && css`
+  display: block;
+  width: 100%;
+`}
   
   ${props => props.white && !props.outline && css`
     background-color: #fff;

@@ -29,7 +29,7 @@ const ProductForm = ({ product = null, id = null }) => {
             setLoading(true);
             try {
                 const response = await axios.get('/api/categories');
-                console.log(response);
+                console.log(response.data);
                 setCategories(response.data);
                 setLoading(false);
             } catch (error) {
@@ -148,7 +148,7 @@ const ProductForm = ({ product = null, id = null }) => {
                         >
                             <option value="">No category selected</option>
                             {categories.map(category => (
-                                <option key={category._id} value={category.name}>{category.name}</option>
+                                <option key={category._id} value={category._id}>{category.name}</option>
                             ))}
                         </select>
 
