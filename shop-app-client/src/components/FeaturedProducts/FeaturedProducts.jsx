@@ -6,7 +6,7 @@ import ButtonLink from '@/components/Buttons/ButtonLink'
 import CartIcon from '@/components/Icons/CartIcon'
 import { Bg, Title, Desc, ColumnsWrapper, Column, ButtonsWrapper } from './FeaturedProducts.styles'
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({ product }) => {
     return (
         <>
             <Bg>
@@ -14,11 +14,11 @@ const FeaturedProducts = () => {
                     <ColumnsWrapper>
                         <Column>
                             <div>
-                                <Title>Airpods</Title>
-                                <Desc>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste ut facilis animi vel iusto fugit labore aperiam autem placeat, recusandae necessitatibus sit deleniti repudiandae hic architecto delectus, eius consequatur voluptates.</Desc>
+                                <Title>{product?.title}</Title>
+                                <Desc>{product?.description}</Desc>
                                 <ButtonsWrapper>
                                     <ButtonLink href={'/product/'} outline={1} white={1}>Read more</ButtonLink>
-                                    <Button white >
+                                    <Button $white={true}>
                                         <CartIcon />
                                         Add to cart
                                     </Button>
@@ -26,7 +26,7 @@ const FeaturedProducts = () => {
                             </div>
                         </Column>
                         <Column>
-                            <img src="https://dawid-next-ecommerce.s3.amazonaws.com/1679151719649.png" alt="" />
+                            <img src={product?.photos[0]} alt="" />
                         </Column>
                     </ColumnsWrapper>
                 </Center>
