@@ -34,13 +34,16 @@ export default function Home() {
   // obtain the first product
   const featuredProduct = products[0];
 
+  // obtain last 8 products
+  const latestProducts = products.slice(-8);
+
   return (
     <>
       <Header />
       {loading ? <p>Loading...</p> : (
         <>
-          <FeaturedProducts product={featuredProduct}/>
-          <ProductsFeed products={products} />
+          <FeaturedProducts product={featuredProduct} />
+          <ProductsFeed products={latestProducts} />
         </>
       )}
     </>

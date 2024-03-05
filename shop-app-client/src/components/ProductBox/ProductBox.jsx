@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { CartContext } from '@/components/CartContext';
+
 import Button from "@/components/Buttons/Button";
 import CartIcon from "@/components/Icons/CartIcon";
 import { ProductWrapper, WhiteBox, Title, ProductInfoBox, PriceRow, Price } from './ProductBox.styles';
@@ -6,6 +8,12 @@ import { ProductWrapper, WhiteBox, Title, ProductInfoBox, PriceRow, Price } from
 const ProductBox = ({ product }) => {
     const { _id, title, description, price, photos } = product;
     const productUrl = `/product/${_id}`;
+
+    const { addToCart } = useContext(CartContext);
+
+    const handleAddToCart = () => {
+        addToCart(_id);
+    }
 
     return (
         <>
@@ -21,7 +29,7 @@ const ProductBox = ({ product }) => {
                         <Price>
                             ${price}
                         </Price>
-                        <Button block primary outline>
+                        <Button block primary outline onClick={handleAddToCart}>
                             Add to cart
                         </Button>
                     </PriceRow>

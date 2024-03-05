@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import { CartContext } from '@/components/CartContext';
 
 import Center from '../Center';
 import {
@@ -11,6 +12,8 @@ import {
 } from './Header.styles';
 
 const Header = () => {
+    const { cart } = useContext(CartContext);
+
     return (
         <StyledHeader>
             <Center>
@@ -21,7 +24,7 @@ const Header = () => {
                         <NavLink href={'/products'}>All products</NavLink>
                         <NavLink href={'/categories'}>Categories</NavLink>
                         <NavLink href={'/account'}>Account</NavLink>
-                        <NavLink href={'/cart'}>Cart(0)</NavLink>
+                        <NavLink href={'/cart'}>Cart ({cart.length})</NavLink>
                     </StyledNav>
                     <NavButton>
                         {/* Temp bar icon */}
