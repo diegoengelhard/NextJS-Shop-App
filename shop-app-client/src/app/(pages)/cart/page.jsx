@@ -21,13 +21,6 @@ const CartPage = () => {
     const [streetAddress, setStreetAddress] = useState('');
     const [country, setCountry] = useState('');
 
-    // calculate cart total
-    let total = 0;
-    for (const productId of cart) {
-        const price = products.find(p => p._id === productId)?.price || 0;
-        total += price;
-    }
-
     // Fetch products in cart context
     useEffect(() => {
         const fetchCartProducts = async () => {
@@ -46,7 +39,14 @@ const CartPage = () => {
 
         fetchCartProducts();
     }, [cart]);
-    
+
+    // calculate cart total
+    let total = 0;
+    for (const productId of cart) {
+        const price = products.find(p => p._id === productId)?.price || 0;
+        total += price;
+    }
+
     return (
         <>
             <Header />
@@ -77,6 +77,7 @@ const CartPage = () => {
                                             </ProductInfoCell>
                                             <td>
                                                 <Button
+                                                    onClick={() => removeFromCart(product._id)}
                                                 >
                                                     -
                                                 </Button>
@@ -84,7 +85,9 @@ const CartPage = () => {
                                                     {cart.filter(id => id === product._id).length}
                                                 </QuantityLabel>
                                                 <Button
-                                                >+
+                                                    onClick={() => addToCart(product._id)}
+                                                >
+                                                    +
                                                 </Button>
                                             </td>
                                             <td>
@@ -136,7 +139,8 @@ const CartPage = () => {
                                 value={country}
                                 name="country"
                                 onChange={ev => setCountry(ev.target.value)} />
-                            <Button black block
+                            <Button 
+                                black block
                             >
                                 Continue to payment
                             </Button>

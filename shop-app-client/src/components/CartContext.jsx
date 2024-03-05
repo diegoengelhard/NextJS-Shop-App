@@ -20,7 +20,13 @@ export const CartProvider = ({ children }) => {
     }
 
     const removeFromCart = (productId) => {
-        setCart(cart.filter(product => product._id !== productId));
+        setCart(prev => {
+            const pos = prev.indexOf(productId);
+            if (pos !== -1) {
+                return prev.filter((value, index) => index !== pos);
+            }
+            return prev;
+        });
     }
 
     const clearCart = () => {
