@@ -50,7 +50,7 @@ const CartPage = () => {
     }
 
     // Create order
-    async function goToPayment() {
+    const goToPayment = async () => {
         try {
             const data = { name, email, city, postalCode, streetAddress, country, cartProducts: cart }
             const response = await axios.post('/api/checkout', data);
