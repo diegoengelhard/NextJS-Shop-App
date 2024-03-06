@@ -1,12 +1,18 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import styled from "styled-components";
 import axios from 'axios';
-import Image from 'next/image'
-import styles from './page.module.css'
 
 import Header from '@/components/Header/Header';
 import FeaturedProducts from '@/components/FeaturedProducts/FeaturedProducts';
 import ProductsFeed from '@/components/ProductsFeed';
+import Center from '@/components/Center';
+
+const Title = styled.h2`
+  font-size: 2rem;
+  margin:30px 0 20px;
+  font-weight: normal;
+`;
 
 export default function Home() {
   // set states
@@ -43,6 +49,7 @@ export default function Home() {
       {loading ? <p>Loading...</p> : (
         <>
           <FeaturedProducts product={featuredProduct} />
+          <Center><Title>New Arrivals</Title></Center>
           <ProductsFeed products={latestProducts} />
         </>
       )}

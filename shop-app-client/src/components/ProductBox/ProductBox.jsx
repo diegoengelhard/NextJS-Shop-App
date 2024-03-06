@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { CartContext } from '@/components/CartContext';
 
 import Button from "@/components/Buttons/Button";
@@ -7,7 +7,7 @@ import { ProductWrapper, WhiteBox, Title, ProductInfoBox, PriceRow, Price } from
 
 const ProductBox = ({ product }) => {
     const { _id, title, description, price, photos } = product;
-    const productUrl = `/product/${_id}`;
+    const productUrl = `/products/${_id}`;
 
     const { addToCart } = useContext(CartContext);
 
