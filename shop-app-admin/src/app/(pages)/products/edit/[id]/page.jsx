@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import ProductForm from '@/components/ProductForm';
+import Spinner from '@/components/Spinner';
 
 const EditProductPage = () => {
     const { id } = useParams(); // get params from url
@@ -36,7 +37,7 @@ const EditProductPage = () => {
         <>
             <Layout>
                 <h1>Edit product</h1>
-                {loading ? <p>Loading...</p> : <ProductForm product={product} id={id} />}
+                {loading ? <Spinner/> : <ProductForm product={product} id={id} />}
             </Layout>
         </>
     )

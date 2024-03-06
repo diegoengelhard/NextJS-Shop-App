@@ -1,7 +1,9 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
 import Layout from '@/components/Layout';
+import Spinner from '@/components/Spinner';
 
 const OrdersPage = () => {
     // Set orders state
@@ -29,7 +31,7 @@ const OrdersPage = () => {
     return (
         <>
             <Layout>
-                {loading ? <p>Loading...</p> : (
+                {loading ? <Spinner/> : (
                     <>
                         <h1>Orders</h1>
                         <table className="basic">

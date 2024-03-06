@@ -2,6 +2,7 @@
 import { useSession, signOut, signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Layout from '../components/Layout';
+import Spinner from '@/components/Spinner';
 
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
   console.log(session);
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (

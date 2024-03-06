@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import Layout from '@/components/Layout';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Spinner from '@/components/Spinner';
 
 // Import file base for photo upload
 import FileBase from 'react-file-base64';
@@ -127,7 +128,7 @@ const ProductForm = ({ product = null, id = null }) => {
     return (
         <>
             {loading ? (
-                <p>Loading...</p>
+                <Spinner />
             ) : (
                 <div>
                     {/* Product form */}

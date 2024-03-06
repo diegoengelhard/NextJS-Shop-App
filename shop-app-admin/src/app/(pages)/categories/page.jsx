@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 import Layout from '@/components/Layout';
+import Spinner from '@/components/Spinner';
 
 const CategoriesPage = () => {
     // set states
@@ -238,7 +239,7 @@ const CategoriesPage = () => {
 
                     {/* Display categories */}
                     {!editCategory && (
-                        loading ? <p>Loading...</p> :
+                        loading ? <Spinner /> :
                             <table className="basic mt-4">
                                 <thead>
                                     <tr>
