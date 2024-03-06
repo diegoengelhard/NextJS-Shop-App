@@ -6,13 +6,18 @@ export const CartContext = createContext({});
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
         // Get the initial cart from localStorage
-        const localCart = localStorage.getItem('cart');
+        let localCart;
+        if (typeof window !== 'undefined') {
+            localCart = window.localStorage.getItem('cart');
+        }
         return localCart ? JSON.parse(localCart) : [];
     });
 
     // Update localStorage whenever the cart changes
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        if (typeof window !== 'undefined') {
+            window.localStorage.setItem('cart', JSON.stringify(cart));
+        }
     }, [cart]);
 
     const addToCart = (productId) => {

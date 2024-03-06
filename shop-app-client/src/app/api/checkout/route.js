@@ -68,8 +68,8 @@ export async function POST(req, res) {
             payment_method_types: ['card'],
             line_items,
             mode: 'payment',
-            success_url: `${process.env.NEXT_URL}/success`,
-            cancel_url: `${process.env.NEXT_URL}/cart`,
+            success_url: `${process.env.NEXT_URL}/cart?success=1`,
+            cancel_url: `${process.env.NEXT_URL}/cart?canceled=1`,
         });
 
         return NextResponse.json({ url: session.url });

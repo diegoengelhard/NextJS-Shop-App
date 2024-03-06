@@ -1,6 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '@/components/CartContext';
+import Link from 'next/link';
 import axios from 'axios';
 
 import Header from '@/components/Header/Header';
@@ -9,6 +10,7 @@ import Button from '@/components/Buttons/Button';
 import Table from '@/components/Table';
 import Input from '@/components/Input';
 import { ColumnsWrapper, Box, ProductInfoCell, ProductImageBox, QuantityLabel, CityHolder } from './styles';
+import { set } from 'mongoose';
 
 const CartPage = () => {
     // Get cart context methods
@@ -22,6 +24,8 @@ const CartPage = () => {
     const [postalCode, setPostalCode] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [country, setCountry] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false); // For showing payment success message
+    const [isFailed, setIsFailed] = useState(false); // For showing payment failed message
 
     // Fetch products in cart context
     useEffect(() => {
@@ -62,6 +66,56 @@ const CartPage = () => {
         } catch (error) {
             console.error('Failed to create order:', error);
         }
+    }
+
+    // Check if payment is successful
+    useEffect(() => {
+        // if not, return
+        if (typeof window === 'undefined') {
+            setIsFailed(true);
+            return;
+        }
+        // if success, clear cart & show success message
+        if (window?.location.href.includes('success')) {
+            setIsSuccess(true);
+            clearCart();
+        }
+    }, []);
+
+    // render success message
+    if (isSuccess) {
+        return (
+            <>
+                <Header />
+                <Center>
+                    <ColumnsWrapper>
+                        <Box>
+                            <h1>Thanks for your order!</h1>
+                            <p>We will email you when your order will be sent.</p>
+                            <Link href="/">Return to home</Link>
+                        </Box>
+                    </ColumnsWrapper>
+                </Center>
+            </>
+        );
+    }
+
+    // render failed message
+    if (isFailed) {
+        return (
+            <>
+                <Header />
+                <Center>
+                    <ColumnsWrapper>
+                        <Box>
+                            <h1>Payment failed</h1>
+                            <p>Please try again</p>
+                            <Link href="/cart">Return to cart</Link>
+                        </Box>
+                    </ColumnsWrapper>
+                </Center>
+            </>
+        );
     }
 
     return (
