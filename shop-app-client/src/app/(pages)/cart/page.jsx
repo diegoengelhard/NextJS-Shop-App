@@ -11,8 +11,10 @@ import Input from '@/components/Input';
 import { ColumnsWrapper, Box, ProductInfoCell, ProductImageBox, QuantityLabel, CityHolder } from './styles';
 
 const CartPage = () => {
+    // Get cart context methods
     const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
 
+    // Set states
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -45,6 +47,21 @@ const CartPage = () => {
     for (const productId of cart) {
         const price = products.find(p => p._id === productId)?.price || 0;
         total += price;
+    }
+
+    // Create order
+    async function goToPayment() {
+        try {
+            const data = { name, email, city, postalCode, streetAddress, country, cartProducts: cart }
+            const response = await axios.post('/api/checkout', data);
+
+            // Redirect to payment page if the response contains a URL
+            if (response.data.url) {
+                window.location = response.data.url;
+            }
+        } catch (error) {
+            console.error('Failed to create order:', error);
+        }
     }
 
     return (
@@ -139,8 +156,9 @@ const CartPage = () => {
                                 value={country}
                                 name="country"
                                 onChange={ev => setCountry(ev.target.value)} />
-                            <Button 
+                            <Button
                                 black block
+                                onClick={goToPayment}
                             >
                                 Continue to payment
                             </Button>
