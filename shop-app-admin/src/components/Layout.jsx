@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
 
     return (
         <>
-            <div className='bg-purple-500 min-h-screen flex'>
+            <div className='bg-primary min-h-screen flex'>
                 <Navbar showNavbar={showNav} />
                 <section className='bg-white flex-grow my-2 mr-2 rounded-lg p-4'>
                     {children}
