@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import axios from 'axios';
+import { useSession, signOut, signIn } from "next-auth/react";
 
 import Header from '@/components/Header/Header';
 import FeaturedProducts from '@/components/FeaturedProducts/FeaturedProducts';
@@ -18,6 +19,13 @@ export default function Home() {
   // set states
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
   // Fetch products
   useEffect(() => {

@@ -23,7 +23,7 @@ const Header = () => {
                         <NavLink href={'/'}>Home</NavLink>
                         <NavLink href={'/products'}>All products</NavLink>
                         <NavLink href={'/categories'}>Categories</NavLink>
-                        <NavLink href={'/account'}>Account</NavLink>
+                        <NavLink href={'/account/sign-in'}>Account</NavLink>
                         <NavLink href={'/cart'}>Cart ({cart.length})</NavLink>
                     </StyledNav>
                     <NavButton>
