@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import { useSession } from "next-auth/react";
 import { CartContext } from '@/components/CartContext';
 
 import Center from '../Center'
@@ -6,14 +7,22 @@ import Button from '@/components/Buttons/Button'
 import ButtonLink from '@/components/Buttons/ButtonLink'
 import CartIcon from '@/components/Icons/CartIcon'
 import { Bg, Title, Desc, ColumnsWrapper, Column, ButtonsWrapper } from './FeaturedProducts.styles'
+import {toast} from 'react-toastify';
 
 const FeaturedProducts = ({ product }) => {
+    // Get next-auth session
+    const { data: session, status } = useSession();
+
     // Obtain the addToCart function from the CartContext
     const { addToCart } = useContext(CartContext);
 
     // Add the product to the cart
     const handleAddToCart = () => {
-        addToCart(product?._id);
+        if (session) {
+            addToCart(product);
+        } else {
+            return toast.warn('Please sign in to add to cart');
+        }
     }
 
     return (

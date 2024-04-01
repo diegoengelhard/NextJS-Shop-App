@@ -50,6 +50,17 @@ export const NavLink = styled(Link)`
   }
 `;
 
+export const Logout = styled.div`
+  display: block;
+  color: #aaa;
+  text-decoration: none;
+  padding: 10px 0;
+  cursor: pointer;
+  @media screen and (min-width: 768px) {
+    padding: 0;
+  }
+`;
+
 export const NavButton = styled.button`
   background-color: transparent;
   width: 30px;
