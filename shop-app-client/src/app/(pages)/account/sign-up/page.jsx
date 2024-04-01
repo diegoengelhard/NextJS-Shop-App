@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { signIn, useSession } from "next-auth/react";
+import axios from 'axios';
 import { redirect, useRouter } from "next/navigation";
 
 import { toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import Input from '@/components/Input';
 const page = () => {
     const router = useRouter();
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -18,14 +19,14 @@ const page = () => {
         e.preventDefault();
 
         try {
-            await signIn("credentials", {
+            await axios.post("/api/auth/sign-up", {
+                name,
                 email,
                 password,
-                redirect: false,
             });
 
-            toast.success("Sign In Successful!");
-            router.push('/');
+            toast.success("Sign Up Successful!");
+            router.push('/account/sign-in');
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.error);
@@ -37,9 +38,14 @@ const page = () => {
             <Header />
             <Grid>
                 <ShadowDiv>
-                    <Title>Sign In</Title>
+                    <Title>Sign Up</Title>
 
                     <Box>
+                        <Input
+                            onChange={(e) => setName(e.target.value)}
+                            type="text"
+                            placeholder="Name"
+                        />
                         <Input
                             onChange={(e) => setEmail(e.target.value)}
                             type="email"
@@ -53,10 +59,10 @@ const page = () => {
                         <Button
                             onClick={handleSubmit}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
                     </Box>
-                    <Text href="/account/sign-up">Don't have an account? Sign Up</Text>
+                    <Text href="/account/sign-in">Already have an account? Sign in</Text>
                 </ShadowDiv>
             </Grid>
         </>

@@ -4,6 +4,9 @@ import './globals.css'
 import { AuthProvider } from './authProvider'
 import { CartProvider } from '@/components/CartContext'
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -17,6 +20,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <AuthProvider>
           <CartProvider>
+            <ToastContainer />
             {children}
           </CartProvider>
         </AuthProvider>

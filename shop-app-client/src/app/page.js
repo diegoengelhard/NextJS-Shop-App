@@ -24,10 +24,6 @@ export default function Home() {
   const { data: session, status } = useSession();
   console.log(session);
 
-  if (status === "loading") {
-    return <Spinner />;
-  }
-
   // Fetch products
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,7 +51,9 @@ export default function Home() {
   return (
     <>
       <Header />
-      {loading ? <Spinner /> : (
+      {(status === "loading" || loading) ? (
+        <Spinner />
+      ) : (
         <>
           <FeaturedProducts product={featuredProduct} />
           <Center><Title>New Arrivals</Title></Center>
