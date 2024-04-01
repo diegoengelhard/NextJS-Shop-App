@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 export const Grid = styled.div`
   display: grid;
@@ -15,7 +16,7 @@ export const Text = styled(Link)`
 `;
 
 export const ShadowDiv = styled.div`
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   padding: 20px;
   border-top: 4px solid #222;
   border-radius: 10px;
