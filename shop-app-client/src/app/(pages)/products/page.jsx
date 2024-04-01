@@ -7,6 +7,7 @@ import Header from '@/components/Header/Header';
 import ProductsFeed from '@/components/ProductsFeed';
 import Center from '@/components/Center';
 import ReactPaginate from 'react-paginate';
+import Spinner from '@/components/Spinner';
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -46,7 +47,7 @@ const ProductsPage = () => {
     return (
         <>
             <Header />
-            {loading ? <p>Loading...</p> : (
+            {loading ? <Spinner /> : (
                 <>
                     <Center>
                         <Title>Products</Title>

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Header from '@/components/Header/Header';
 import Center from '@/components/Center';
+import Spinner from '@/components/Spinner';
 import Button from '@/components/Buttons/Button';
 import CartIcon from '@/components/Icons/CartIcon';
 import { CartContext } from '@/components/CartContext';
@@ -43,7 +44,7 @@ const SingleProductPage = () => {
         <>
             <Header />
             <Center>
-                {loading ? <p>Loading...</p> : (
+                {loading ? <Spinner /> : (
                     <Center>
                         <p>Here Product Page</p>
                     </Center>

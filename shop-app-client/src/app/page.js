@@ -8,6 +8,7 @@ import Header from '@/components/Header/Header';
 import FeaturedProducts from '@/components/FeaturedProducts/FeaturedProducts';
 import ProductsFeed from '@/components/ProductsFeed';
 import Center from '@/components/Center';
+import Spinner from '@/components/Spinner';
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -24,7 +25,7 @@ export default function Home() {
   console.log(session);
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   // Fetch products
@@ -54,7 +55,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      {loading ? <p>Loading...</p> : (
+      {loading ? <Spinner /> : (
         <>
           <FeaturedProducts product={featuredProduct} />
           <Center><Title>New Arrivals</Title></Center>
