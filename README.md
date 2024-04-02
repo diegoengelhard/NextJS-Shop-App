@@ -42,9 +42,3 @@ docker-compose up
 
 5. Open http://localhost:3000 with your browser to see the result.
 
-
-### Admin Dashboard
-![Alt text](https://ibb.co/jMqnrn7)
-
-### Client Homepage
-![Alt text](https://ibb.co/6YyKy4k)
