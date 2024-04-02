@@ -57,7 +57,7 @@ export default function Home() {
         <>
           <FeaturedProducts product={featuredProduct} />
           <Center><Title>New Arrivals</Title></Center>
-          <ProductsFeed products={latestProducts} />
+          <ProductsFeed products={latestProducts} categories={null} />
         </>
       )}
     </>

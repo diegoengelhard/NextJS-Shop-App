@@ -27,14 +27,14 @@ const ProductsFeed = ({ products, categories }) => {
     return (
         <>
             <Center>
-                <select onChange={handleCategoryChange}>
-                    <option value="">All Categories</option>
-                    {categories.map(category => (
-                        <option key={category._id} value={category._id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
+                {categories && (
+                    <select value={selectedCategory} onChange={handleCategoryChange}>
+                        <option value="">All categories</option>
+                        {categories.map(category => (
+                            <option key={category._id} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
+                )}
                 <StyledProductsGrid>
                     {filteredProducts?.length > 0 && filteredProducts.map(product => (
                         <div key={product._id}>
