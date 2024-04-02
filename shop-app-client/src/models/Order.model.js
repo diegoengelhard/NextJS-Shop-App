@@ -35,6 +35,10 @@ const orderSchema = new Schema({
         type: Object,
         required: [true, "Cart products are required"],
     },
+    total: {
+        type: Number,
+        required: [true, "Total is required"],
+    },
     paid: {
         type: Boolean,
         default: true,

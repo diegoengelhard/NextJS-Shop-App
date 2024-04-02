@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Title = styled.p`
+  font-weight: 400;
+  font-size: 1rem;
+`;
+
 export const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;

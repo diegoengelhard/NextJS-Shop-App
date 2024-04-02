@@ -19,7 +19,7 @@ const FeaturedProducts = ({ product }) => {
     // Add the product to the cart
     const handleAddToCart = () => {
         if (session) {
-            addToCart(product);
+            addToCart(product._id);
         } else {
             return toast.warn('Please sign in to add to cart');
         }

@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { CartContext } from '@/components/CartContext';
 import Link from 'next/link';
 import axios from 'axios';
@@ -9,17 +10,18 @@ import Center from '@/components/Center';
 import Button from '@/components/Buttons/Button';
 import Table from '@/components/Table';
 import Input from '@/components/Input';
-import { ColumnsWrapper, Box, ProductInfoCell, ProductImageBox, QuantityLabel, CityHolder } from './styles';
+import { Title, ColumnsWrapper, Box, ProductInfoCell, ProductImageBox, QuantityLabel, CityHolder } from './styles';
 import { set } from 'mongoose';
 
 const CartPage = () => {
+    // Get session
+    const { data: session } = useSession();
+
     // Get cart context methods
     const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
 
     // Set states
     const [products, setProducts] = useState([]);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [postalCode, setPostalCode] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
@@ -56,7 +58,17 @@ const CartPage = () => {
     // Create order
     const goToPayment = async () => {
         try {
-            const data = { name, email, city, postalCode, streetAddress, country, cartProducts: cart }
+            const data = { 
+                name: session?.user.name,
+                email: session?.user.email,
+                city,
+                postalCode,
+                streetAddress,
+                country,
+                cartProducts: cart,
+                total
+            }
+            console.log(data);
             const response = await axios.post('/api/checkout', data);
 
             // Redirect to payment page if the response contains a URL
@@ -178,16 +190,12 @@ const CartPage = () => {
                     {!!cart?.length && (
                         <Box>
                             <h2>Order information</h2>
-                            <Input type="text"
-                                placeholder="Name"
-                                value={name}
-                                name="name"
-                                onChange={ev => setName(ev.target.value)} />
-                            <Input type="text"
-                                placeholder="Email"
-                                value={email}
-                                name="email"
-                                onChange={ev => setEmail(ev.target.value)} />
+                            <Title>
+                                <b>name: </b>{session?.user.name}
+                            </Title>
+                            <Title>
+                                <b>email: </b>{session?.user.email}
+                            </Title>
                             <CityHolder>
                                 <Input type="text"
                                     placeholder="City"

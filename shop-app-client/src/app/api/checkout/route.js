@@ -17,6 +17,7 @@ export async function POST(req, res) {
             streetAddress,
             country,
             cartProducts,
+            total
         } = await req.json();
 
         // Obtain product ids from cart & delete duplicates
@@ -59,6 +60,7 @@ export async function POST(req, res) {
             streetAddress,
             country,
             line_items,
+            total,
         });
 
         await order.save();
