@@ -1,4 +1,4 @@
-## Project Title: Next.js E-Commerce Platform
+## Next.js E-Commerce Shop App
 
 ### Description
 
@@ -44,7 +44,7 @@ docker-compose up
 
 
 ### Admin Dashboard
-![Admin dashboard image](https://ibb.co/jMqnrn7)
+![Alt text](https://ibb.co/jMqnrn7)
 
 ### Client Homepage
-![CLient homepage image](https://ibb.co/6YyKy4k)
+![Alt text](https://ibb.co/6YyKy4k)
