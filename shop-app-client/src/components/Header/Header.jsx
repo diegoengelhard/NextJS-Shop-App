@@ -26,7 +26,6 @@ const Header = () => {
                     <StyledNav >
                         <NavLink href={'/'}>Home</NavLink>
                         <NavLink href={'/products'}>All products</NavLink>
-                        <NavLink href={'/categories'}>Categories</NavLink>
                         <NavLink href={'/account/sign-in'}>Account</NavLink>
                         {session && (
                             <Logout onClick={() => signOut()}>

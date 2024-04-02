@@ -1,4 +1,5 @@
-import React from 'react'
+'use client';
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components";
 
 import Center from '@/components/Center';
@@ -13,13 +14,29 @@ const StyledProductsGrid = styled.div`
   }
 `;
 
-const ProductsFeed = ({ products }) => {
+const ProductsFeed = ({ products, categories }) => {
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const handleCategoryChange = (event) => {
+        setSelectedCategory(event.target.value);
+    };
+
+    const filteredProducts = selectedCategory
+        ? products.filter(product => product.category === selectedCategory)
+        : products;
     return (
         <>
             <Center>
+                <select onChange={handleCategoryChange}>
+                    <option value="">All Categories</option>
+                    {categories.map(category => (
+                        <option key={category._id} value={category._id}>
+                            {category.name}
+                        </option>
+                    ))}
+                </select>
                 <StyledProductsGrid>
-                    {products?.length > 0 && products.map(product => (
-                        // <ProductBox key={product._id} {...product} />
+                    {filteredProducts?.length > 0 && filteredProducts.map(product => (
                         <div key={product._id}>
                             <ProductBox product={product} />
                         </div>

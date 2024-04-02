@@ -6,3 +6,21 @@ body {
     margin:0;
     font-family: 'Poppins', sans-serif;
 }
+
+select {
+    font-family: 'Poppins', sans-serif;
+    font-size: 100%;
+    color: inherit;
+    margin: 1em 0;
+    padding: 0.5em 1.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right  top 70%;
+    background-size: 1.5em;
+  }

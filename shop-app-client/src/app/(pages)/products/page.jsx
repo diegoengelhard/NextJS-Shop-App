@@ -18,13 +18,8 @@ const Title = styled.h2`
 const ProductsPage = () => {
     // set states
     const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 10;
-
-    // calculate products on current page
-    const offset = currentPage * itemsPerPage;
-    const currentPageData = products.slice(offset, offset + itemsPerPage);
 
     // Fetch products
     useEffect(() => {
@@ -44,6 +39,24 @@ const ProductsPage = () => {
         fetchProducts();
     }, []);
 
+    // Fetch categories
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get('/api/categories');
+                console.log(response.data);
+                setCategories(response.data);
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                console.log(error);
+            }
+        }
+
+        fetchCategories();
+    }, []);
+
     return (
         <>
             <Header />
@@ -51,19 +64,7 @@ const ProductsPage = () => {
                 <>
                     <Center>
                         <Title>Products</Title>
-                        <ProductsFeed products={products} />
-                        <ReactPaginate
-                            previousLabel={'previous'}
-                            nextLabel={'next'}
-                            breakLabel={'...'}
-                            breakClassName={'break-me'}
-                            pageCount={Math.ceil(products.length / itemsPerPage)}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={({ selected: selectedPage }) => setCurrentPage(selectedPage)}
-                            containerClassName={'pagination'}
-                            activeClassName={'active'}
-                        />
+                        <ProductsFeed products={products} categories={categories} />
                     </Center>
                 </>
             )}
